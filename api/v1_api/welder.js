@@ -4,7 +4,7 @@ export default function(instance) {
             return instance.get(`welders\\${ident}`)
         },
         getWelders(payload, page, pageSize) {
-            return instance.post(`welders?page=${page}&page_size=${pageSize}`, payload)
+            return instance.post(`welders/?page=${page}&page_size=${pageSize}`, payload)
         }
     }
 }

@@ -16,8 +16,8 @@
 
 <script>
   import SideBar from "@/components/SideBar.vue"
-  import WelderList from "@/components/welder_page_components/WelderList.vue"
-  import WelderFilterBar from "@/components/welder_page_components/WelderFilterBar.vue"
+  import WelderList from "@/components/welder_registry_components/WelderList.vue"
+  import WelderFilterBar from "@/components/welder_registry_components/WelderFilterBar.vue"
 
   export default{
     name: "App",
