@@ -5,5 +5,3 @@ export default {
         Vue.config.globalProperties.$v1Api = api
     }
 }
-
-

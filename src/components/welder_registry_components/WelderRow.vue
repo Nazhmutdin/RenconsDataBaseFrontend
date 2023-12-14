@@ -1,12 +1,13 @@
 <template>
     <tr class="welder-row">
         <td class="row-item row-index"><span>{{ index + 1 }}</span></td>
-        <th class="row-item welder-name"><a href="" class="welder-link">{{ name }}</a></th>
+        <th class="row-item welder-name">{{ name }}</th>
         <td class="row-item welder-kleymo"><span>{{ kleymo }}</span></td>
         <td class="row-item welder-birthday"><span>-</span></td>
+        <td class="row-item welder-nation"><span>-</span></td>
         <td class="row-item welder-passport"><span>-</span></td>
-        <td class="row-item welder-sicil"><span>-</span></td>
-        <td class="row-item welder-nation"><span>{{ nation }}</span></td>
+        <td v-if="status==0" class="row-item welder-status"><span>&#10008;</span></td>
+        <td v-else-if="status==1" class="row-item welder-status"><span>&#10004;</span></td>
         <td class="row-item row-welder-certifications welder-certifications"><span>show</span></td>
     </tr>
 </template>
@@ -47,6 +48,10 @@
             sicilNumber: {
                 type: String,
                 default: "-",
+            },
+            status: {
+                type: Number,
+                default: 100,
             }
         }
     }
@@ -60,12 +65,10 @@
 
 
 <style>
-    .welder-row{
-        height: 3vh;
-    }
     .row-item{
         float: left;
-        font-size: 16px;
+        height: 3vh;
+        padding: 0;
         color: rgb(7, 80, 175);
     }
 

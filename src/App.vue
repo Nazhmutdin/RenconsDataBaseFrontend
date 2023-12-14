@@ -53,7 +53,7 @@
 
   .welder-filter-bar{
     margin-top: 12vh;
-    width: 18vw;
+    width: 20vw;
     float: right;
   }
 </style>

@@ -14,22 +14,7 @@
                 </li>
                 <li class="registry_url">
                     <a class="header_url" href="#">
-                        Engineer registry
-                    </a>
-                </li>
-                <li class="registry_url">
-                    <a class="header_url" href="#">
                         NDT registry
-                    </a>
-                </li>
-                <li class="registry_url">
-                    <a class="header_url" href="#">
-                        ACST registry
-                    </a>
-                </li>
-                <li class="registry_url">
-                    <a class="header_url" href="#">
-                        ACSO registry
                     </a>
                 </li>
             </ul>

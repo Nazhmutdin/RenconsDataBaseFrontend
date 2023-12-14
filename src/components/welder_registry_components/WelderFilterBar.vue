@@ -2,64 +2,69 @@
     <div class="filter-bar">
         <ul class="filters">
             <li class="filter">
-                <strong>certification date: </strong>
-                <div class="from_before">
-                    <div class="from_filter">
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp;from </span>
-                        <input type="date" class="filter-input date-filter-input">  
-                    </div>
-                    <div class="before_filter">
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp;before </span>
-                        <input type="date" class="filter-input date-filter-input">
-                    </div>
-                </div>
-            </li>
-            <li class="filter">
-                <strong>expiration date</strong>
+                <strong>certification date:</strong>
                 <div class="from_before">
                     <div class="from_filter">
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;from:&nbsp;</span>
-                        <input type="date" class="filter-input date-filter-input">
+                        <input @change="setSearchFilters" v-model="searchFilters.certificationDateFrom" type="date" class="filter-input date-filter-input">  
                     </div>
                     <div class="before_filter">
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;before:&nbsp;</span>
-                        <input type="date" class="filter-input date-filter-input">
+                        <input @change="setSearchFilters" v-model="searchFilters.certificationDateBefore" type="date" class="filter-input date-filter-input">
                     </div>
                 </div>
             </li>
             <li class="filter">
-                <strong>detail thikness (mm)</strong>
-                <div class="from_filter">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;from:&nbsp;</span>
-                    <input type="number" class="filter-input mm-number" pattern="\d+(\.\d+)?">
-                </div>
-                <div class="before_filter">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;before:&nbsp;</span>
-                    <input type="number" class="filter-input mm-number" pattern="\d+(\.\d+)?">
-                </div>
-            </li>
-            <li class="filter">
-                <strong>detail diameter (mm)</strong>
-                <div class="from_filter">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;from:&nbsp;</span>
-                    <input type="number" class="filter-input mm-number" pattern="\d+(\.\d+)?">
-                </div>
-                <div class="before_filter">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;before:&nbsp;</span>
-                    <input type="number" class="filter-input mm-number" pattern="\d+(\.\d+)?">
-                </div>
-            </li>
-            <li class="filter materials-filter">
-                <strong>materials:&nbsp;</strong>
-                <button class="select-button" value="hide" @click="searchFunction">Select</button>
-                <div class="accordion">
-                    <div class="accordion-select" ref="accordionSelect">
+                <strong>expiration date:</strong>
+                <div class="from_before">
+                    <div class="from_filter">
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;from:&nbsp;</span>
+                        <input @change="setSearchFilters" v-model="searchFilters.expirationDateFrom" type="date" class="filter-input date-filter-input">
+                    </div>
+                    <div class="before_filter">
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;before:&nbsp;</span>
+                        <input @change="setSearchFilters" v-model="searchFilters.expirationDateBefore" type="date" class="filter-input date-filter-input">
                     </div>
                 </div>
             </li>
             <li class="filter">
-                <strong>GTD: &nbsp;</strong>
-                <button class="select-button" value="hide" @click="searchFunction">Select</button>
+                <strong>expiration date (fact):</strong>
+                <div class="from_before">
+                    <div class="from_filter">
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;from:&nbsp;</span>
+                        <input @change="setSearchFilters" v-model="searchFilters.expirationDateFactFrom" type="date" class="filter-input date-filter-input">
+                    </div>
+                    <div class="before_filter">
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;before:&nbsp;</span>
+                        <input @change="setSearchFilters" v-model="searchFilters.expirationDateFactBefore" type="date" class="filter-input date-filter-input">
+                    </div>
+                </div>
+            </li>
+            <li class="filter">
+                <strong>detail thikness (mm):</strong>
+                <div class="from_filter">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;from:&nbsp;</span>
+                    <input @change="setSearchFilters" v-model="searchFilters.detailThiknessFrom" type="number" class="filter-input filter-mm-number" pattern="\d+(\.\d+)?">
+                </div>
+                <div class="before_filter">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;before:&nbsp;</span>
+                    <input @change="setSearchFilters" v-model="searchFilters.detailThiknessBefore" type="number" class="filter-input filter-mm-number" pattern="\d+(\.\d+)?">
+                </div>
+            </li>
+            <li class="filter">
+                <strong>detail diameter (mm):</strong>
+                <div class="from_filter">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;from:&nbsp;</span>
+                    <input @change="setSearchFilters" v-model="searchFilters.detailDiameterFrom" type="number" class="filter-input filter-mm-number" pattern="\d+(\.\d+)?">
+                </div>
+                <div class="before_filter">
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;before:&nbsp;</span>
+                    <input @change="setSearchFilters" v-model="searchFilters.detailDiameterBefore" type="number" class="filter-input filter-mm-number" pattern="\d+(\.\d+)?">
+                </div>
+            </li>
+            <li class="filter status-filter">
+                <strong>status true:&nbsp;</strong>
+                <input @change="setSearchFilters" v-model="searchFilters.status" class="filter-input" type="checkbox">
             </li>
         </ul>
     </div>
@@ -75,19 +80,29 @@
 <script>
     export default{
         name: "WelderFilterBar",
-        methods: {
-            searchFunction(event){
-                console.log(`\\`)
-                if (event.target.value === "hide"){
-                    this.$refs.accordionSelect.style.display = "block"
-                    event.target.value = "block"
-                }
-                else {
-                    this.$refs.accordionSelect.style.display = "none"
-                    event.target.value = "hide"
+        data(){
+            return {
+                searchFilters: {
+                    certificationDateFrom: null,
+                    certificationDateBefore: null,
+                    expirationDateFrom: null,
+                    expirationDateBefore: null,
+                    expirationDateFactFrom: null,
+                    expirationDateFactBefore: null,
+                    detailThiknessFrom: null,
+                    detailThiknessBefore: null,
+                    detailDiameterFrom: null,
+                    detailDiameterBefore: null,
+                    status: 0
                 }
             }
-        }
+        },
+        methods: {
+            async setSearchFilters(){
+                console.log(this.searchFilters)
+                this.$store.commit("welderRegistry/setSearchFilters", this.searchFilters)
+            }
+        },
     }
 </script>
 
@@ -108,7 +123,7 @@
         border-radius: 7px;
         border: 2px solid blue;
         position: fixed;
-        width: 16vw;
+        width: 18vw;
         font-size: max(16px, 1.1vw);
     }
 
@@ -151,12 +166,23 @@
         border: rgb(152, 201, 245) solid 1px;
         border-radius: 5px;
         background-color: rgb(221, 245, 252);
-        width: 5vw;
         height: max(14px, .9vw);
+    }
+
+    .date-filter-input{
+        width: 7vw;
+    }
+
+    .filter-mm-number{
+        width: 5vw;
     }
 
     .from_filter, .before_filter{
         padding-top: 5px;
+    }
+
+    .status-filter .filter-input{
+        padding-top: 100px;
     }
 
     .filter-input:focus{ 

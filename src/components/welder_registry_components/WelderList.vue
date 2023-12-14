@@ -1,7 +1,7 @@
 <template>
     <div class="input-area">
-        <input type="text" v-model="search_value" lab>
-        <button @click="searchWelder">Search</button>
+        <input type="text" v-model="searchValuesString" lab>
+        <button @click="searchWelders">Search</button>
     </div>
     <table v-if="welders.length != 0" class="content-table">
         <thead class="content-table-header">
@@ -10,15 +10,15 @@
                 <th class="header-item header-welder-name"><b>Full Name</b></th>
                 <th class="header-item header-welder-kleymo"><b>Kleymo</b></th>
                 <th class="header-item header-welder-birthday"><b>Birthday</b></th>
-                <th class="header-item header-welder-passport"><b>Passport</b></th>
-                <th class="header-item header-welder-sicil"><b>Sicil</b></th>
                 <th class="header-item header-welder-nation"><b>Nation</b></th>
+                <th class="header-item header-welder-passport"><b>Passport</b></th>
+                <th class="header-item header-welder-status"><b>Status</b></th>
                 <th class="header-item header-welder-certifications"><b>Certifications</b></th>
             </tr>
 
         </thead>
         <tbody>
-            <WelderRow v-for="(welder, index) in welders" :sicilNumber="welder.sicil_number" :passportId="welder.passport_id" :key="index" :index="index" :name="welder.name" :kleymo="welder.kleymo" :nation="welder.nation" :birthday="welder.birthday"></WelderRow>
+            <WelderRow v-for="(welder, index) in welders" :status="welder.status" :sicilNumber="welder.sicil_number" :passportId="welder.passport_id" :key="index" :index="index" :name="welder.name" :kleymo="welder.kleymo" :nation="welder.nation" :birthday="welder.birthday"></WelderRow>
         </tbody>
     </table>
 
@@ -38,16 +38,42 @@
         name: "WelderList",
         components: { WelderRow },
         methods: {
-            async searchWelder() {
-                const data = (await this.$v1Api.welder.getWelders(undefined, 1, 100)).data
-                console.log(data)
-                this.welders = data.result
+            async searchWelders() {
+                await this.extractNamesKleymosCertificatioNumbers()
+                await this.$store.dispatch("welderRegistry/searchWelders")
+                this.welders = await this.$store.getters["welderRegistry/getWelders"]
+                console.log(await this.$store.getters["welderRegistry/getCount"])
+            },
+            async extractNamesKleymosCertificatioNumbers(){
+                let kleymos = [];
+                let certificationNumbers = []
+                let names = []
+                let searchValues = this.searchValuesString.split(';');
+
+                for (let i = 0; i < searchValues.length; i++){
+                    let value = searchValues[i].trim()
+                    if (/^[A-Z0-9]{4}$/.test(value)) {
+                        kleymos.push(value)
+                    }
+                    else if (/^[А-Я]+[-][0-9А-Я]+[-][IV]+[-][0-9]+$/.test(value)) {
+                        certificationNumbers.push(value)
+                    }
+                    else {
+                        names.push(value)
+                    }
+                }
+
+                this.$store.commit("welderRegistry/setSearchValues", {
+                    'kleymos': kleymos,
+                    'names': names,
+                    'certificationNumbers': certificationNumbers
+                })
             }
         },
 
         data(){
             return {
-                search_value: "",
+                searchValuesString: "",
                 welders: []
             }
         }
@@ -66,7 +92,7 @@
     }
 
     .input-area input[type=text]{
-        width: 25vw;
+        width: 40vw;
         height: 3vh;
         margin-right: 2vw;
         border: 1px solid blue;
@@ -133,7 +159,7 @@
         text-align: center;
     }
 
-    .welder-sicil, .header-welder-sicil{
+    .welder-status, .header-welder-status{
         width: 7vw;
         text-align: center;
     }
