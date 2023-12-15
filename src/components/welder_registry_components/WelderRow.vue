@@ -1,7 +1,7 @@
 <template>
     <tr class="welder-row">
         <td class="row-item row-index"><span>{{ index + 1 }}</span></td>
-        <th class="row-item welder-name"><a href="" class="welder-link">{{ name }}</a></th>
+        <th class="row-item welder-name"><router-link :to="{ name: 'welder', params: { id: kleymo } }" class="welder-link">{{ name }}</router-link></th>
         <td class="row-item welder-kleymo"><span>{{ kleymo }}</span></td>
         <td class="row-item welder-birthday"><span>-</span></td>
         <td class="row-item welder-nation"><span>-</span></td>

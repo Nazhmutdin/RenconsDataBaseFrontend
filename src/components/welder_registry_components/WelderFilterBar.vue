@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </li>
-            <li class="filter">
+            <!-- <li class="filter">
                 <strong>detail thikness (mm):</strong>
                 <div class="from_filter">
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;from:&nbsp;</span>
@@ -61,11 +61,19 @@
                     <span>&nbsp;&nbsp;&nbsp;&nbsp;before:&nbsp;</span>
                     <input @change="setSearchFilters" v-model="searchFilters.detailDiameterBefore" type="number" class="filter-input filter-mm-number" pattern="\d+(\.\d+)?">
                 </div>
-            </li>
+            </li> -->
             <li class="filter status-filter">
                 <strong>status true:&nbsp;</strong>
-                <input @change="setSearchFilters" v-model="searchFilters.status" class="filter-input" type="checkbox">
+                <select class="status-select" name="select" id="">
+                    <option value="">&#10004;</option>
+                    <option value="">&#10008;</option>
+                    <option value="">all</option>
+                </select>
             </li>
+            <div class="filter-bar-buttons">
+                <button @click="clearFilters" class="clear-search-filters filter-bar-button">clear filters</button>
+                <button @click="setSoonExpirationDateFilters" class="soon-expiration-button filter-bar-button">soon expiration</button>
+            </div>
         </ul>
     </div>
 </template>
@@ -98,9 +106,33 @@
             }
         },
         methods: {
-            async setSearchFilters(){
+            setSearchFilters(){
                 console.log(this.searchFilters)
                 this.$store.commit("welderRegistry/setSearchFilters", this.searchFilters)
+            },
+            setSoonExpirationDateFilters(){
+                let date = new Date()
+                this.searchFilters.expirationDateFactFrom = date.toISOString().split("T")[0]
+                date.setMonth(date.getMonth()+2)
+                this.searchFilters.expirationDateFactBefore = date.toISOString().split("T")[0]
+
+                this.setSearchFilters()
+            },
+            clearFilters(){
+                this.searchFilters = {
+                    certificationDateFrom: null,
+                    certificationDateBefore: null,
+                    expirationDateFrom: null,
+                    expirationDateBefore: null,
+                    expirationDateFactFrom: null,
+                    expirationDateFactBefore: null,
+                    detailThiknessFrom: null,
+                    detailThiknessBefore: null,
+                    detailDiameterFrom: null,
+                    detailDiameterBefore: null,
+                    status: 0
+                }
+                this.setSearchFilters()
             }
         },
     }
@@ -147,6 +179,15 @@
         margin: auto 10px;
     }
 
+    .filter-bar-button{
+        margin-bottom: 1vw;
+        border: 1px solid blue;
+        border-radius: 3px;
+        color: blue;
+        margin-right: 0.5vw;
+        background-color: rgb(237, 246, 252);
+    }
+
     .select-button{
         height: max(16px, 1.1vw);
         border: rgb(152, 201, 245) solid 1px;
@@ -183,6 +224,11 @@
 
     .status-filter .filter-input{
         padding-top: 100px;
+    }
+    .status-select{
+        border: 1px solid blue;
+        border-radius: 3px;
+        background-color: rgb(221, 245, 252);
     }
 
     .filter-input:focus{ 

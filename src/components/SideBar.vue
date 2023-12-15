@@ -1,21 +1,21 @@
 <template>
     <div class="sidebar-header">
         <div class="logo side-bar-header-item">
-            <a class="logo_img_container" href="">
+            <router-link to="main" @click="ggg" class="logo_img_container" href="">
                 <img class="logo-img" src="@/assets/logo.png" alt="Image">
-            </a>
+            </router-link>
         </div>
         <div class="nav_container side-bar-header-item">
             <ul class="nav_bar_urls">
                 <li class="registry_url">
-                    <a class="header_url" href="#">
+                    <router-link @click="ggg" :to="{ name: 'welderRegistry' }" class="header_url">
                         Welder registry
-                    </a>
+                    </router-link>
                 </li>
                 <li class="registry_url">
-                    <a class="header_url" href="#">
+                    <router-link :to="{ name: 'welderNDTRegistry' }" class="header_url" href="#">
                         NDT registry
-                    </a>
+                    </router-link>
                 </li>
             </ul>
         </div>

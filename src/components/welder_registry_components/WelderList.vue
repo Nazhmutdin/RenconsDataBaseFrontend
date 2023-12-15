@@ -151,7 +151,7 @@
     }
 
     .welder-name, .header-welder-name{
-        width: 25vw;
+        width: 30vw;
         text-align: left;
     }
 
