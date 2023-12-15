@@ -22,47 +22,64 @@ export default{
             certificationNumbers: null
         },
         welders: [],
-        count : 0
+        count : 0,
+        currentPage: 1,
+        pageSize: 100
     },
     mutations:{
-        async setSearchFilters(state, searchFilters){
+        setSearchFilters(state, searchFilters){
             state.searchFilters = searchFilters
         },
-        async setWelders(state, welders){
+        setWelders(state, welders){
             state.welders = welders
         },
-        async setSearchValues(state, values){
+        setSearchValues(state, values){
             state.searchValues = values
         },
-        async setCount(state, count){
+        setCount(state, count){
             state.count = count
+        },
+        setCurrentPage(state, currentPage){
+            state.currentPage = currentPage
+        },
+        setPageSize(state, pageSize){
+            state.pageSize = pageSize
         }
     },
     getters:{
-        async getWelders(state){
+        getWelders(state){
             return state.welders
         },
-        async getSearchFilters(state){
+        getSearchFilters(state){
             return state.searchFilters
         },
-        async getSearchValues(state){
+        getSearchValues(state){
             return state.searchValues
         },
-        async getCount(state){
+        getCount(state){
             return state.count
+        },
+        getCurrentPage(state){
+            return state.currentPage
+        },
+        getPageSize(state){
+            return state.pageSize
         }
     },
     actions:{
         async searchWelders(context) {
 
             let payload = {
-                ...await context.getters["getSearchValues"],
-                ...await context.getters["getSearchFilters"]
+                ...context.getters["getSearchValues"],
+                ...context.getters["getSearchFilters"]
             }
 
-            const data = (await v1_api.welder.getWelders(payload, 1, 100)).data
-            await context.commit("setWelders", data.result)
-            await context.commit("setCount", data.count)
+            let page = context.getters["getCurrentPage"]
+            let pageSize = context.getters["getPageSize"]
+
+            const data = (await v1_api.welder.getWelders(payload, page, pageSize)).data
+            context.commit("setWelders", data.result)
+            context.commit("setCount", data.count)
         }
     }
 }

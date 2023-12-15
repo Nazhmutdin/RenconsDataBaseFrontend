@@ -3,6 +3,12 @@
         <input type="text" v-model="searchValuesString" lab>
         <button @click="searchWelders">Search</button>
     </div>
+    <div v-show="getCount() != 0" class="summary-welders-count">
+        <span><b>Welders found:</b>&nbsp;{{ getCount() }}</span>
+    </div>
+    <div class="pagination">
+        <WelderRegistryPagination></WelderRegistryPagination>
+    </div>
     <table v-if="welders.length != 0" class="content-table">
         <thead class="content-table-header">
             <tr>
@@ -13,12 +19,10 @@
                 <th class="header-item header-welder-nation"><b>Nation</b></th>
                 <th class="header-item header-welder-passport"><b>Passport</b></th>
                 <th class="header-item header-welder-status"><b>Status</b></th>
-                <th class="header-item header-welder-certifications"><b>Certifications</b></th>
             </tr>
-
         </thead>
         <tbody>
-            <WelderRow v-for="(welder, index) in welders" :status="welder.status" :sicilNumber="welder.sicil_number" :passportId="welder.passport_id" :key="index" :index="index" :name="welder.name" :kleymo="welder.kleymo" :nation="welder.nation" :birthday="welder.birthday"></WelderRow>
+            <WelderRow v-for="(welder, index) in welders" :status="welder.status" :passportId="welder.passport_id" :key="index" :index="index" :name="welder.name" :kleymo="welder.kleymo" :nation="welder.nation" :birthday="welder.birthday"></WelderRow>
         </tbody>
     </table>
 
@@ -33,16 +37,16 @@
 
 <script>
     import WelderRow from "@/components/welder_registry_components/WelderRow.vue"
+    import WelderRegistryPagination from "@/components/welder_registry_components/welderRegistryPagination.vue"
 
     export default{
         name: "WelderList",
-        components: { WelderRow },
+        components: { WelderRow, WelderRegistryPagination },
         methods: {
             async searchWelders() {
-                await this.extractNamesKleymosCertificatioNumbers()
+                this.$store.commit("welderRegistry/setCurrentPage", 1)
+                this.extractNamesKleymosCertificatioNumbers()
                 await this.$store.dispatch("welderRegistry/searchWelders")
-                this.welders = await this.$store.getters["welderRegistry/getWelders"]
-                console.log(await this.$store.getters["welderRegistry/getCount"])
             },
             async extractNamesKleymosCertificatioNumbers(){
                 let kleymos = [];
@@ -68,13 +72,21 @@
                     'names': names,
                     'certificationNumbers': certificationNumbers
                 })
+            },
+            getCount(){
+                return this.$store.getters["welderRegistry/getCount"]
+            }
+        },
+
+        computed: {
+            welders: function(){
+                return this.$store.getters["welderRegistry/getWelders"]
             }
         },
 
         data(){
             return {
-                searchValuesString: "",
-                welders: []
+                searchValuesString: ""
             }
         }
     }
@@ -89,6 +101,12 @@
 <style>
     .input-area{
         margin-bottom: 2vw;
+    }
+
+    .summary-welders-count{
+        margin-bottom: 1vw;
+        font-size: 16px;
+        color: rgb(24, 114, 217);
     }
 
     .input-area input[type=text]{
@@ -120,9 +138,21 @@
 
     .header-item{
         float: left;
+    }
+
+    .header-item b {
         font-size: min(2.5vh, 18px);
         color: rgb(24, 114, 217);
-        margin: 0;
+    }
+
+    .row-index, .header-row-index{
+        width: 4vw;
+        text-align: center;
+    }
+
+    .welder-name, .header-welder-name{
+        width: 25vw;
+        text-align: left;
     }
 
     .welder-kleymo, .header-welder-kleymo{
@@ -135,23 +165,9 @@
         text-align: center;
     }
 
-    .row-index, .header-row-index{
-        width: 4vw;
+    .welder-nation, .header-welder-nation{
+        width: 6vw;
         text-align: center;
-    }
-
-    .welder-name{
-        width: 25vw;
-        text-align: left;
-    }
-
-    .welder-name span{
-        padding-left: 2px;
-    }
-
-    .header-welder-name{
-        width: 25vw;
-        text-align: left;
     }
 
     .welder-passport, .header-welder-passport{
@@ -164,15 +180,10 @@
         text-align: center;
     }
 
-    .welder-nation, .header-welder-nation{
-        width: 6vw;
-        text-align: center;
-    }
-
-    .welder-certifications, .header-welder-certifications{
+    /* .welder-certifications, .header-welder-certifications{
         width: 10vw;
         text-align: center;
-    }
+    } */
 
     .content tr th, .content tr td{
         border-bottom: 1px solid rgb(78, 184, 238);
