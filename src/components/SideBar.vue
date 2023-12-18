@@ -1,7 +1,7 @@
 <template>
     <div class="sidebar-header">
         <div class="logo side-bar-header-item">
-            <router-link to="main" @click="ggg" class="logo_img_container" href="">
+            <router-link :to="{ name: 'main' }" @click="ggg" class="logo_img_container" href="">
                 <img class="logo-img" src="@/assets/logo.png" alt="Image">
             </router-link>
         </div>
