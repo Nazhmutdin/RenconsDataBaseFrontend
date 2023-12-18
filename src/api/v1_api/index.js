@@ -1,6 +1,10 @@
-import welder_http from "./welder"
+import welderHttp from "./welder"
+import welderCertificationHttp from "./welderCertification"
+import welderNDTsHttp from "./welderNDTs"
 import instance from "./instance"
 
 export default {
-    welder: welder_http(instance)
+    welder: welderHttp(instance),
+    welderCertifications: welderCertificationHttp(instance),
+    welderNDTs: welderNDTsHttp(instance)
 }
