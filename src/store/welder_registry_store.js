@@ -11,10 +11,7 @@ export default{
             expirationDateBefore: null,
             expirationDateFactFrom: null,
             expirationDateFactBefore: null,
-            detailThiknessFrom: null,
-            detailThiknessBefore: null,
-            detailDiameterFrom: null,
-            detailDiameterBefore: null
+            status: null
         },
         searchValues: {
             names: null,
@@ -35,6 +32,28 @@ export default{
         },
         setSearchValues(state, values){
             state.searchValues = values
+        },
+        setCertificationDateFrom(state, value){
+            state.searchFilters.certificationDateFrom = value
+        },
+        setCertificationDateBefore(state, value){
+            state.searchFilters.certificationDateBefore = value
+        },
+        setExpirationDateFrom(state, value){
+            state.searchFilters.expirationDateFrom = value
+        },
+        setExpirationDateBefore(state, value){
+            state.searchFilters.expirationDateBefore = value
+        },
+        setExpirationDateFactFrom(state, value){
+            state.searchFilters.expirationDateFactFrom = value
+        },
+        setExpirationDateFactBefore(state, value){
+            console.log(value)
+            state.searchFilters.expirationDateFactBefore = value
+        },
+        setStatus(state, value){
+            state.searchFilters.status = value
         },
         setCount(state, count){
             state.count = count
@@ -64,6 +83,27 @@ export default{
         },
         getPageSize(state){
             return state.pageSize
+        },
+        getCertificationDateFrom(state){
+            return state.searchFilters.certificationDateFrom
+        },
+        getCertificationDateBefore(state){
+            return state.searchFilters.certificationDateBefore
+        },
+        getExpirationDateFrom(state){
+            return state.searchFilters.expirationDateFrom
+        },
+        getExpirationDateBefore(state){
+            return state.searchFilters.expirationDateBefore
+        },
+        getExpirationDateFactFrom(state){
+            return state.searchFilters.expirationDateFactFrom
+        },
+        getExpirationDateFactBefore(state){
+            return state.searchFilters.expirationDateFactBefore
+        },
+        getStatus(state){
+            return state.searchFilters.status
         }
     },
     actions:{

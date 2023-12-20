@@ -6,11 +6,11 @@
                 <div class="from_before">
                     <div class="from_filter">
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;from:&nbsp;</span>
-                        <input @change="setSearchFilters" v-model="searchFilters.certificationDateFrom" type="date" class="filter-input date-filter-input">  
+                        <input @change="setSearchFilters" v-model="certificationDateFrom" type="date" class="filter-input date-filter-input">  
                     </div>
                     <div class="before_filter">
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;before:&nbsp;</span>
-                        <input @change="setSearchFilters" v-model="searchFilters.certificationDateBefore" type="date" class="filter-input date-filter-input">
+                        <input @change="setSearchFilters" v-model="certificationDateBefore" type="date" class="filter-input date-filter-input">
                     </div>
                 </div>
             </li>
@@ -19,11 +19,11 @@
                 <div class="from_before">
                     <div class="from_filter">
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;from:&nbsp;</span>
-                        <input @change="setSearchFilters" v-model="searchFilters.expirationDateFrom" type="date" class="filter-input date-filter-input">
+                        <input @change="setSearchFilters" v-model="expirationDateFrom" type="date" class="filter-input date-filter-input">
                     </div>
                     <div class="before_filter">
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;before:&nbsp;</span>
-                        <input @change="setSearchFilters" v-model="searchFilters.expirationDateBefore" type="date" class="filter-input date-filter-input">
+                        <input @change="setSearchFilters" v-model="expirationDateBefore" type="date" class="filter-input date-filter-input">
                     </div>
                 </div>
             </li>
@@ -32,11 +32,11 @@
                 <div class="from_before">
                     <div class="from_filter">
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;from:&nbsp;</span>
-                        <input @change="setSearchFilters" v-model="searchFilters.expirationDateFactFrom" type="date" class="filter-input date-filter-input">
+                        <input @change="setSearchFilters" v-model="expirationDateFactFrom" type="date" class="filter-input date-filter-input">
                     </div>
                     <div class="before_filter">
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;before:&nbsp;</span>
-                        <input @change="setSearchFilters" v-model="searchFilters.expirationDateFactBefore" type="date" class="filter-input date-filter-input">
+                        <input @change="setSearchFilters" v-model="expirationDateFactBefore" type="date" class="filter-input date-filter-input">
                     </div>
                 </div>
             </li>
@@ -75,44 +75,81 @@
                     expirationDateBefore: null,
                     expirationDateFactFrom: null,
                     expirationDateFactBefore: null,
-                    detailThiknessFrom: null,
-                    detailThiknessBefore: null,
-                    detailDiameterFrom: null,
-                    detailDiameterBefore: null,
                     status: 0
                 }
             }
         },
         methods: {
             setSearchFilters(){
-                console.log(this.searchFilters)
-                this.$store.commit("welderRegistry/setSearchFilters", this.searchFilters)
+                console.log(this.$store.getters["welderRegistry/getSearchFilters"])
             },
             setSoonExpirationDateFilters(){
                 let date = new Date()
-                this.searchFilters.expirationDateFactFrom = date.toISOString().split("T")[0]
+                this.expirationDateFactFrom = date.toISOString().split("T")[0]
                 date.setMonth(date.getMonth()+2)
-                this.searchFilters.expirationDateFactBefore = date.toISOString().split("T")[0]
+                this.expirationDateFactBefore = date.toISOString().split("T")[0]
 
                 this.setSearchFilters()
             },
             clearFilters(){
-                this.searchFilters = {
-                    certificationDateFrom: null,
-                    certificationDateBefore: null,
-                    expirationDateFrom: null,
-                    expirationDateBefore: null,
-                    expirationDateFactFrom: null,
-                    expirationDateFactBefore: null,
-                    detailThiknessFrom: null,
-                    detailThiknessBefore: null,
-                    detailDiameterFrom: null,
-                    detailDiameterBefore: null,
-                    status: 0
-                }
-                this.setSearchFilters()
+                this.certificationDateFrom = null
+                this.certificationDateBefore = null
+                this.expirationDateFrom = null
+                this.expirationDateBefore = null
+                this.expirationDateFactFrom = null
+                this.expirationDateFactBefore = null
             }
         },
+        computed: {
+            certificationDateFrom:{
+                get(){
+                    return this.$store.getters["welderRegistry/getCertificationDateFrom"]
+                },
+                set(value){
+                    this.$store.commit("welderRegistry/setCertificationDateFrom", value)
+                }
+            },
+            certificationDateBefore:{
+                get(){
+                    return this.$store.getters["welderRegistry/getCertificationDateBefore"]
+                },
+                set(value){
+                    this.$store.commit("welderRegistry/setCertificationDateBefore", value)
+                }
+            },
+            expirationDateFrom:{
+                get(){
+                    return this.$store.getters["welderRegistry/getExpirationDateFrom"]
+                },
+                set(value){
+                    this.$store.commit("welderRegistry/setExpirationDateFrom", value)
+                }
+            },
+            expirationDateBefore:{
+                get(){
+                    return this.$store.getters["welderRegistry/getExpirationDateBefore"]
+                },
+                set(value){
+                    this.$store.commit("welderRegistry/setExpirationDateBefore", value)
+                }
+            },
+            expirationDateFactFrom:{
+                get(){
+                    return this.$store.getters["welderRegistry/getExpirationDateFactFrom"]
+                },
+                set(value){
+                    this.$store.commit("welderRegistry/setExpirationDateFactFrom", value)
+                }
+            },
+            expirationDateFactBefore:{
+                get(){
+                    return this.$store.getters["welderRegistry/getExpirationDateFactBefore"]
+                },
+                set(value){
+                    this.$store.commit("welderRegistry/setExpirationDateFactBefore", value)
+                }
+            }
+        }
     }
 </script>
 

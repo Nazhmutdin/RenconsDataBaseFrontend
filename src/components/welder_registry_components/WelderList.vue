@@ -47,6 +47,7 @@
                 this.$store.commit("welderRegistry/setCurrentPage", 1)
                 await this.extractNamesKleymosCertificatioNumbers()
                 await this.$store.dispatch("welderRegistry/searchWelders")
+                // console.log(this.$store.getters["welderRegistry/getSearchFilters"])
             },
             async searchWeldersOnEnter(event){
                 if (event.key == "Enter"){
