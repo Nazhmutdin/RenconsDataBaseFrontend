@@ -43,9 +43,9 @@
             <li class="filter status-filter">
                 <strong>status true:&nbsp;</strong>
                 <select v-model="status" class="status-select" name="select" id="">
-                    <option value="">&#10004;</option>
-                    <option value="">&#10008;</option>
-                    <option value="">all</option>
+                    <option value=null>all</option>
+                    <option value=1>&#10004;</option>
+                    <option value=0>&#10008;</option>
                 </select>
             </li>
             <div class="filter-bar-buttons">
@@ -141,6 +141,7 @@
                     return this.$store.getters["welderRegistry/getStatus"]
                 },
                 set(value){
+                    console.log(value)
                     this.$store.commit("welderRegistry/setStatus", value)
                 }
             }
