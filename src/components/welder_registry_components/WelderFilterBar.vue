@@ -42,7 +42,7 @@
             </li>
             <li class="filter status-filter">
                 <strong>status true:&nbsp;</strong>
-                <select class="status-select" name="select" id="">
+                <select v-model="status" class="status-select" name="select" id="">
                     <option value="">&#10004;</option>
                     <option value="">&#10008;</option>
                     <option value="">all</option>
@@ -66,19 +66,6 @@
 <script>
     export default{
         name: "WelderFilterBar",
-        data(){
-            return {
-                searchFilters: {
-                    certificationDateFrom: null,
-                    certificationDateBefore: null,
-                    expirationDateFrom: null,
-                    expirationDateBefore: null,
-                    expirationDateFactFrom: null,
-                    expirationDateFactBefore: null,
-                    status: 0
-                }
-            }
-        },
         methods: {
             setSearchFilters(){
                 console.log(this.$store.getters["welderRegistry/getSearchFilters"])
@@ -147,6 +134,14 @@
                 },
                 set(value){
                     this.$store.commit("welderRegistry/setExpirationDateFactBefore", value)
+                }
+            },
+            status:{
+                get(){
+                    return this.$store.getters["welderRegistry/getStatus"]
+                },
+                set(value){
+                    this.$store.commit("welderRegistry/setStatus", value)
                 }
             }
         }
