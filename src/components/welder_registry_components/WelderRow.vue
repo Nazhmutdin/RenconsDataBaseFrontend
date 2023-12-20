@@ -59,35 +59,52 @@
 -->
 
 
-<style>
+<style scoped>
     .row-item{
         float: left;
         height: 3vh;
         color: rgb(7, 80, 175);
     }
-
     .welder-link{
         text-decoration: none;
         font-weight: normal;
         color: rgb(7, 80, 175);
         transition: all .1 ease;
     }
-
-    .row-welder-certifications{
-        transition: all .1 ease;
-    }
-
     .welder-link:hover{
         font-weight: bold;
         cursor: pointer;
     }
-
-    .row-welder-certifications span:hover{
-        font-weight: bold;
-        cursor: pointer;
+    .row-index{
+        width: 4vw;
+        text-align: center;
     }
-
-    /* .welder-row{
+    .welder-name{
+        width: 30vw;
+        text-align: left;
+    }
+    .welder-kleymo{
+        width: 6vw;
+        text-align: center;
+    }
+    .welder-birthday{
+        width: 6vw;
+        text-align: center;
+    }
+    .welder-nation{
+        width: 6vw;
+        text-align: center;
+    }
+    .welder-passport{
+        width: 7vw;
+        text-align: center;
+    }
+    .welder-status{
+        width: 7vw;
+        text-align: center;
+        margin: 0;
+    }
+    .welder-row th, .welder-row td{
         border-bottom: 1px solid rgb(78, 184, 238);
-    } */
+    }
 </style>

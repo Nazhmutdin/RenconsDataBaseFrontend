@@ -40,28 +40,6 @@
                     </div>
                 </div>
             </li>
-            <!-- <li class="filter">
-                <strong>detail thikness (mm):</strong>
-                <div class="from_filter">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;from:&nbsp;</span>
-                    <input @change="setSearchFilters" v-model="searchFilters.detailThiknessFrom" type="number" class="filter-input filter-mm-number" pattern="\d+(\.\d+)?">
-                </div>
-                <div class="before_filter">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;before:&nbsp;</span>
-                    <input @change="setSearchFilters" v-model="searchFilters.detailThiknessBefore" type="number" class="filter-input filter-mm-number" pattern="\d+(\.\d+)?">
-                </div>
-            </li>
-            <li class="filter">
-                <strong>detail diameter (mm):</strong>
-                <div class="from_filter">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;from:&nbsp;</span>
-                    <input @change="setSearchFilters" v-model="searchFilters.detailDiameterFrom" type="number" class="filter-input filter-mm-number" pattern="\d+(\.\d+)?">
-                </div>
-                <div class="before_filter">
-                    <span>&nbsp;&nbsp;&nbsp;&nbsp;before:&nbsp;</span>
-                    <input @change="setSearchFilters" v-model="searchFilters.detailDiameterBefore" type="number" class="filter-input filter-mm-number" pattern="\d+(\.\d+)?">
-                </div>
-            </li> -->
             <li class="filter status-filter">
                 <strong>status true:&nbsp;</strong>
                 <select class="status-select" name="select" id="">
@@ -144,12 +122,11 @@
 -->
 
 
-<style>
+<style scoped>
     .filters{
         padding-left: 25px;
         padding-top: .3vw;
     }
-
     .filter-bar{
         background: rgb(213, 237, 249);
         border-radius: 7px;
@@ -158,13 +135,11 @@
         width: 18vw;
         font-size: max(16px, 1.1vw);
     }
-
     .filter{
         color:blue;
         list-style: none;
         padding-bottom: 1vw;
     }
-
     .filter:not(:last-child)::after{
         content: "";
         display: block;
@@ -173,12 +148,6 @@
         height: 2px;
         background-color: rgb(33, 33, 248);
     }
-
-    .materials-filter-input{
-        width: 5.5vw;
-        margin: auto 10px;
-    }
-
     .filter-bar-button{
         margin-bottom: 1vw;
         border: 1px solid blue;
@@ -187,41 +156,18 @@
         margin-right: 0.5vw;
         background-color: rgb(237, 246, 252);
     }
-
-    .select-button{
-        height: max(16px, 1.1vw);
-        border: rgb(152, 201, 245) solid 1px;
-        background-color: rgb(221, 245, 252);
-        border-radius: 5px;
-    }
-
-    .accordion{
-        margin: 0;
-    }
-
-    .accordion-select{
-        display: block;
-    }
-
     .filter-input{
         border: rgb(152, 201, 245) solid 1px;
         border-radius: 5px;
         background-color: rgb(221, 245, 252);
         height: max(14px, .9vw);
     }
-
     .date-filter-input{
         width: 7vw;
     }
-
-    .filter-mm-number{
-        width: 5vw;
-    }
-
     .from_filter, .before_filter{
         padding-top: 5px;
     }
-
     .status-filter .filter-input{
         padding-top: 100px;
     }
@@ -230,7 +176,6 @@
         border-radius: 3px;
         background-color: rgb(221, 245, 252);
     }
-
     .filter-input:focus{ 
         outline: none; 
     }

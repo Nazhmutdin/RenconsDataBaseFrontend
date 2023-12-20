@@ -12,7 +12,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .page-not-found-block{
         width: 100vh;
         height: 100vh;

@@ -3,8 +3,8 @@
         <div class="welder-data-block">
             <div class="name-kleymo-area">
                 <span class="welder-name-kleymo">{{ welder.name }} ({{ welder.kleymo }})</span>
-                <span v-if="welder.staus == 0" class="welder-status ok-status">&#10004;</span>
-                <span v-else="welder.staus == 1" class="welder-status not-ok-status">&#10008;</span>
+                <span v-if="welder.status" class="welder-status ok-status">&#10004;</span>
+                <span v-else class="welder-status not-ok-status">&#10008;</span>
             </div>
             <div class="welder-data">
                 <div class="passport">
@@ -19,16 +19,18 @@
             </div>
         </div>
         <WelderCertificationTable></WelderCertificationTable>
+        <WelderNDTTable></WelderNDTTable>
     </div>
 </template>
 
 <script>
     import utils from "@/mixins/utils.js"
     import WelderCertificationTable from "@/components/welder_page_components/WelderCertificationTable"
+    import WelderNDTTable from "@/components/welder_page_components/WelderNDTTable"
     export default{
         name: "WelderPage",
         mixins: [utils],
-        components: { WelderCertificationTable },
+        components: { WelderCertificationTable, WelderNDTTable },
         data(){
             return {
                 welder: this.getWelder()
@@ -66,12 +68,9 @@
     }
 </script>
 
-<style>
+<style scoped>
     .welder-page{
         margin: 2vh 0 0 1vw ;
-    }
-    .welder-status{
-        margin-left: 10px;
     }
     .ok-status{
         color:green;
@@ -85,6 +84,7 @@
     }
     .welder-name-kleymo{
         font-weight: bold;
+        margin-right: 10px;
     }
     .welder-data{
         margin-top: 1.5vh;

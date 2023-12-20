@@ -1,6 +1,6 @@
 <template>
     <div class="input-area">
-        <input type="text" v-model="searchValuesString" lab>
+        <input @keypress="searchWeldersOnEnter" type="text" v-model="searchValuesString" lab>
         <button @click="searchWelders">Search</button>
     </div>
     <div v-show="getCount() != 0" class="summary-welders-count">
@@ -45,8 +45,13 @@
         methods: {
             async searchWelders() {
                 this.$store.commit("welderRegistry/setCurrentPage", 1)
-                this.extractNamesKleymosCertificatioNumbers()
+                await this.extractNamesKleymosCertificatioNumbers()
                 await this.$store.dispatch("welderRegistry/searchWelders")
+            },
+            async searchWeldersOnEnter(event){
+                if (event.key == "Enter"){
+                    await this.searchWelders()
+                }
             },
             async extractNamesKleymosCertificatioNumbers(){
                 let kleymos = [];
@@ -98,17 +103,15 @@
 -->
 
 
-<style>
+<style scoped>
     .input-area{
         margin-bottom: 2vw;
     }
-
     .summary-welders-count{
         margin-bottom: 1vw;
         font-size: 16px;
         color: rgb(24, 114, 217);
     }
-
     .input-area input[type=text]{
         width: 40vw;
         height: 3vh;
@@ -116,76 +119,56 @@
         border: 1px solid blue;
         border-radius: 5px;
     }
-
     .input-area button{
         background-color: aqua;
         border: 1px solid lightblue;
         border-radius: 5px;
     }
-
     .input-area input:focus{
         border: 3px solid lightblue;
         border-radius: 5px;
     }
-
     .input-area button:hover{
         cursor: pointer
     }
-
     .content-table{
         margin: 0;
     }
-
     .header-item{
         float: left;
+        border-bottom: 4px double rgb(32, 78, 186);
     }
-
     .header-item b {
         font-size: min(2.5vh, 18px);
         color: rgb(24, 114, 217);
     }
-
     .row-index, .header-row-index{
         width: 4vw;
         text-align: center;
     }
-
     .welder-name, .header-welder-name{
         width: 30vw;
         text-align: left;
     }
-
     .welder-kleymo, .header-welder-kleymo{
         width: 6vw;
         text-align: center;
     }
-
     .welder-birthday, .header-welder-birthday{
         width: 6vw;
         text-align: center;
     }
-
     .welder-nation, .header-welder-nation{
         width: 6vw;
         text-align: center;
     }
-
     .welder-passport, .header-welder-passport{
         width: 7vw;
         text-align: center;
     }
-
     .welder-status, .header-welder-status{
         width: 7vw;
         text-align: center;
-    }
-
-    /* .welder-certifications, .header-welder-certifications{
-        width: 10vw;
-        text-align: center;
-    } */
-
-    .content tr th, .content tr td{
-        border-bottom: 1px solid rgb(78, 184, 238);
+        margin: 0;
     }
 </style>

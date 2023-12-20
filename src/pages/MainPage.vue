@@ -23,12 +23,12 @@ export default{
 -->
 
 
-<style>
+<style scoped>
 
-body {
-    background: rgb(237, 246, 252); 
-}
-*{
-    margin: auto;
-}
+    body {
+        background: rgb(237, 246, 252); 
+    }
+    *{
+        margin: auto;
+    }
 </style>

@@ -20,6 +20,6 @@
 -->
 
 
-<style>
+<style scoped>
 
 </style>

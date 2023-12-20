@@ -1,5 +1,6 @@
 <template>
     <tr class="welder-certification-table-row">
+        <td class="table-row-item">{{ index + 1 }}</td>
         <td class="table-row-item">{{ certification.certification_number }}</td>
         <td class="table-row-item">{{ certification.method }}</td>
         <td class="table-row-item">{{ certificationDate }}</td>
@@ -20,6 +21,9 @@
         props: {
             certification: {
                 type: Object
+            },
+            index: {
+                type: Number
             }
         },
         methods: {
@@ -96,13 +100,5 @@
     }
 </script>
 
-<style>
-    .table-row-item{
-        color: rgb(21, 82, 151);
-        font-size: 14px;
-        text-align: center;
-        padding: 0 2vw;
-        border-bottom: 1px solid blue;
-        height: 3vh;
-    }
+<style scoped src="@/styles/welder_page_table.css">
 </style>

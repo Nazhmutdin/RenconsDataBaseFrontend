@@ -31,7 +31,7 @@
 -->
 
 
-<style>
+<style scoped>
 
   body {
       background: rgb(237, 246, 252); 
