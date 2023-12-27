@@ -39,7 +39,6 @@
         methods: {
             async getWelder() {
                 this.welder = (await this.$v1Api.welder.getWelder(this.$route.params.id)).data
-                console.log(this.welder)
             }
         },
         computed: {

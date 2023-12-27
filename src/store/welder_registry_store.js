@@ -49,7 +49,6 @@ export default{
             state.searchFilters.expirationDateFactFrom = value
         },
         setExpirationDateFactBefore(state, value){
-            console.log(value)
             state.searchFilters.expirationDateFactBefore = value
         },
         setStatus(state, value){
@@ -107,7 +106,7 @@ export default{
         }
     },
     actions:{
-        async searchWelders(context) {
+        async getWelders(context) {
 
             let payload = {
                 ...context.getters["getSearchValues"],

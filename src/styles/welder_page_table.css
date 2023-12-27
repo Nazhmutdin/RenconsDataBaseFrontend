@@ -11,14 +11,10 @@
     border-collapse: collapse; 
     border-spacing: 0;
 }
-/* .table-header th{
-} */
 .table-header{
     font-weight: bold;
     font-size: max(18px, 14px);
     border-bottom: 5px double blue;
-    padding: 0 3vw;
-    padding: 0;
     padding: 0 10px;
 }
 

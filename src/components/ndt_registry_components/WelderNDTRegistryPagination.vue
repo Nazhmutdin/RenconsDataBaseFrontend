@@ -16,27 +16,27 @@
 
 <script>
     export default{
-        name: "WelderRegistryPagination",
+        name: "WelderNDTRegistryPagination",
         methods:{
             nextPage(){
                 if (this.currentPage < this.amountPages){
-                    this.$store.commit("welderRegistry/setCurrentPage", this.currentPage + 1)
-                    this.$store.dispatch("welderRegistry/getWelders")
+                    this.$store.commit("welderNDTRegistry/setCurrentPage", this.currentPage + 1)
+                    this.$store.dispatch("welderNDTRegistry/getWelderNDTs")
                 }
             },
             previousPage(){
                 if (this.currentPage > 1){
-                    this.$store.commit("welderRegistry/setCurrentPage", this.currentPage - 1)
-                    this.$store.dispatch("welderRegistry/getWelders")
+                    this.$store.commit("welderNDTRegistry/setCurrentPage", this.currentPage - 1)
+                    this.$store.dispatch("welderNDTRegistry/getWelderNDTs")
                 }
             }
         },
         computed:{
             amountPages: function(){
-                return Math.ceil(this.$store.getters["welderRegistry/getCount"] / this.$store.getters["welderRegistry/getPageSize"])
+                return Math.ceil(this.$store.getters["welderNDTRegistry/getCount"] / this.$store.getters["welderRegistry/getPageSize"])
             },
             currentPage: function(){
-                return this.$store.getters["welderRegistry/getCurrentPage"]
+                return this.$store.getters["welderNDTRegistry/getCurrentPage"]
             }
         }
     }

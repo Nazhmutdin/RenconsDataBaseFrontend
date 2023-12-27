@@ -9,8 +9,8 @@
             <th class="table-header">certification date</th>
             <th class="table-header">expiration date</th>
             <th class="table-header">expirations date (fact)</th>
-            <th class="table-header">diameter(mm)</th>
-            <th class="table-header">thikness(mm)</th>
+            <th class="table-header">diameter (mm)</th>
+            <th class="table-header">thikness (mm)</th>
             <th class="table-header">GTD</th>
         </thead>
         <tbody>
@@ -37,7 +37,10 @@
         },
         methods: {
             async getWelderCertifications() {
-                this.certifications = (await this.$v1Api.welderCertifications.getWelderCertifications(this.$route.params.id)).data.result
+                let payload = {
+                    kleymos: [this.$route.params.id]
+                }
+                this.certifications = (await this.$v1Api.welderCertifications.getWelderCertifications(payload, 1, 100)).data.result
                 console.log(this.certifications)
             }
         }
@@ -45,5 +48,12 @@
 </script>
 
 <style scoped src="@/styles/welder_page_table.css">
-    
+    .welder-certifications-table::after{
+        content: "";
+        display: block;
+        margin: 1vw auto 0;
+        width: 80%;
+        height: 10px;
+        background-color: rgb(33, 33, 248);
+    }
 </style>

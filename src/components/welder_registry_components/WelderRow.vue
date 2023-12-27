@@ -6,9 +6,8 @@
         <td class="row-item welder-birthday"><span>-</span></td>
         <td class="row-item welder-nation"><span>-</span></td>
         <td class="row-item welder-passport"><span>-</span></td>
-        <td v-if="status==0" class="row-item welder-status"><span>&#10008;</span></td>
-        <td v-else-if="status==1" class="row-item welder-status"><span>&#10004;</span></td>
-        <!-- <td class="row-item row-welder-certifications welder-certifications"><span>show</span></td> -->
+        <td v-if="status==0" class="row-item welder-status welder-status-not-ok"><span>&#10008;</span></td>
+        <td v-else-if="status==1" class="row-item welder-status welder-status-ok"><span>&#10004;</span></td>
     </tr>
 </template>
 
@@ -50,7 +49,6 @@
             }
         }
     }
-
 </script>
 
 
@@ -106,5 +104,14 @@
     }
     .welder-row th, .welder-row td{
         border-bottom: 1px solid rgb(78, 184, 238);
+    }
+    .welder-status-ok{
+        color: green
+    }
+    .welder-status-not-ok{
+        color: red
+    }
+    .welder-row:hover{
+        background-color: rgb(204, 231, 248);
     }
 </style>

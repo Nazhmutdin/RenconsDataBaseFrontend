@@ -3,11 +3,9 @@ export default function(instance) {
         async getWelderNDT(ident) {
             return instance.get(`welder-ndts/${ident}`)
         },
-        async getWelderNDTs(kleymo) {
-            return instance.post(`welder-ndts/`, 
-            {
-                kleymos: [kleymo]
-            })
+        async getWelderNDTs(payload, page, pageSize) {
+            console.log(payload)
+            return instance.post(`welder-ndts/?page=${page}&page_size=${pageSize}`, payload)
         }
     }
 }

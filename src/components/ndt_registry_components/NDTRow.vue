@@ -1,0 +1,60 @@
+<template>
+    <tr class="welder-ndt-table-row">
+        <td class="table-row-item">{{ index + 1 }}</td>
+        <td class="table-row-item">{{ ndt.comp }}</td>
+        <td class="table-row-item">{{ ndt.subcon }}</td>
+        <td class="table-row-item">{{ ndt.project }}</td>
+        <td class="table-row-item">{{ weldingDate }}</td>
+        <td class="table-row-item">{{ ndt.total_weld_1 }}</td>
+        <td class="table-row-item">{{ ndt.total_ndt_1 }}</td>
+        <td class="table-row-item">{{ ndt.total_accepted_1 }}</td>
+        <td class="table-row-item">{{ ndt.total_repair_1 }}</td>
+        <td class="table-row-item">{{ ndt.repair_status_1 }}</td>
+        <td class="table-row-item">{{ ndt.total_weld_2 }}</td>
+        <td class="table-row-item">{{ ndt.total_ndt_2 }}</td>
+        <td class="table-row-item">{{ ndt.total_accepted_2 }}</td>
+        <td class="table-row-item">{{ ndt.total_repair_2 }}</td>
+        <td class="table-row-item">{{ ndt.repair_status_2 }}</td>
+        <td class="table-row-item">{{ ndt.total_weld_3 }}</td>
+        <td class="table-row-item">{{ ndt.total_ndt_3 }}</td>
+        <td class="table-row-item">{{ ndt.total_accepted_3 }}</td>
+        <td class="table-row-item">{{ ndt.total_repair_3 }}</td>
+        <td class="table-row-item">{{ ndt.repair_status_3 }}</td>
+    </tr>
+</template>
+
+<script>
+    import utils from "@/mixins/utils"
+    export default {
+        name: "NDTRow",
+        mixins: [utils],
+        props: {
+            ndt: {
+                type: Object
+            },
+            index: {
+                type: Number
+            }
+        },
+        computed: {
+            weldingDate: function(){
+                return this.formatDate(this.ndt.welding_date, "ru-RU")
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    .table-row-item{
+        height: 3vh;
+        color: rgb(7, 80, 175);
+        text-align: center;
+        padding: 0 7px;
+    }
+    td{
+        border-bottom: 1px solid rgb(78, 184, 238);
+    }
+    .welder-ndt-table-row:hover{
+        background-color: rgb(204, 231, 248);
+    }
+</style>

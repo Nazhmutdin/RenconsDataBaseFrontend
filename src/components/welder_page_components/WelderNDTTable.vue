@@ -54,7 +54,11 @@
         components: { WelderNDTTableRow },
         methods: {
             async getNDTs() {
-                this.ndts = (await this.$v1Api.welderNDTs.getWelderNDTs(this.$route.params.id)).data.result
+                let payload = {
+                    kleymos: [this.$route.params.id]
+                }
+
+                this.ndts = (await this.$v1Api.welderNDTs.getWelderNDTs(payload, 1, 100)).data.result
                 console.log(this.ndts)
             }
         },
