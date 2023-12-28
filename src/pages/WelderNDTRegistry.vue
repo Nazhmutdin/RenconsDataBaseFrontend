@@ -92,13 +92,14 @@
     .input-area input[type=text]{
         width: 40vw;
         height: 3vh;
-        margin-right: 2vw;
+        margin-right: 1.5vw;
         border: 1px solid blue;
         border-radius: 5px;
     }
     .input-area button{
         background-color: aqua;
         border: 1px solid lightblue;
+        margin-right: .5vw;
         border-radius: 5px;
     }
     .input-area input:focus{

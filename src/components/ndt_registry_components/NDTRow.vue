@@ -1,7 +1,7 @@
 <template>
     <tr class="welder-ndt-table-row">
         <td class="table-row-item">{{ index + 1 }}</td>
-        <td class="table-row-item">{{ ndt.kleymo }}</td>
+        <td class="table-row-item"><router-link :to="{ name: 'welder', params: { id: ndt.kleymo } }" class="router-link">{{ ndt.kleymo }}</router-link></td>
         <td class="table-row-item">{{ ndt.comp }}</td>
         <td class="table-row-item">{{ ndt.subcon }}</td>
         <td class="table-row-item">{{ ndt.project }}</td>
@@ -64,6 +64,16 @@
     }
     td{
         border-bottom: 1px solid rgb(78, 184, 238);
+    }
+    .router-link{
+        text-decoration: none;
+        font-weight: normal;
+        color: rgb(7, 80, 175);
+        transition: all .1 ease;
+    }
+    .router-link:hover{
+        font-weight: bold;
+        cursor: pointer;
     }
     .welder-ndt-table-row:hover{
         background-color: rgb(204, 231, 248);
