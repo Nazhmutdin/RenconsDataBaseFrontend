@@ -4,6 +4,9 @@
     <div class="input-area">
         <input @keypress="searchNDTsOnEnter" type="text" v-model="searchValuesString">
         <button @click="searchNDTs">Search</button>
+        <button @click="showFilters = !showFilters">filters</button>
+        <div v-if="showFilters" class="modal"><Filters :showFilters="showFilters" @close="showFilters = false"></Filters></div>
+        <div v-else class="modal"></div> 
     </div>
     <WelderNDTRegistryPagination></WelderNDTRegistryPagination>
     <NDTList></NDTList>
@@ -14,13 +17,15 @@
     import SideBar from "@/components/SideBar.vue"
     import WelderNDTRegistryPagination from "@/components/ndt_registry_components/WelderNDTRegistryPagination.vue"
     import NDTList from "@/components/ndt_registry_components/NDTList.vue"
+    import Filters from "@/components/ndt_registry_components/WelderNDTFiltersModalWindow.vue"
 
     export default {
         name: "WelderNDTRegistry",
-        components: { SideBar, WelderNDTRegistryPagination, NDTList },
+        components: { SideBar, WelderNDTRegistryPagination, NDTList, Filters },
         data(){
             return {
-                searchValuesString: ""
+                searchValuesString: "",
+                showFilters: false
             }
         },
         methods: {

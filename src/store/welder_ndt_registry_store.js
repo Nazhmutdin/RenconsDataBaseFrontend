@@ -4,7 +4,16 @@ import v1_api from '../api/v1_api/index'
 export default{
     namespaced: true,
     state:{
-        searchFilters: {},
+        searchFilters: {
+            weldingDateFrom: null,
+            weldingDateBefore: null,
+            status1From: null,
+            status1Before: null,
+            status2From: null,
+            status2Before: null,
+            status3From: null,
+            status3Before: null,
+        },
         searchValues: {},
         ndts: [],
         count: null,
@@ -23,7 +32,32 @@ export default{
         },
         setSearchValues(state, value){
             state.searchValues = value
-        }
+        },
+        setWeldingDateFrom(state, value){
+            console.log(value)
+            state.searchFilters.weldingDateFrom = value
+        },
+        setWeldingDateBefore(state, value){
+            state.searchFilters.weldingDateBefore = value
+        },
+        setStatus1From(state, value){
+            state.searchFilters.status1From = value
+        },
+        setStatus1Before(state, value){
+            state.searchFilters.status1Before = value
+        },
+        setStatus2From(state, value){
+            state.searchFilters.status2From = value
+        },
+        setStatus2Before(state, value){
+            state.searchFilters.status2Before = value
+        },
+        setStatus3From(state, value){
+            state.searchFilters.status3From = value
+        },
+        setStatus3Before(state, value){
+            state.searchFilters.status3Before = value
+        },
     },
     getters:{
         getSearchValues(state){
@@ -43,7 +77,31 @@ export default{
         },
         getCount(state){
             return state.count
-        }
+        },
+        getWeldingDateFrom(state){
+            return state.searchFilters.weldingDateFrom
+        },
+        getWeldingDateBefore(state){
+            return state.searchFilters.weldingDateBefore
+        },
+        getStatus1From(state){
+            return state.searchFilters.status1From
+        },
+        getStatus1Before(state){
+            return state.searchFilters.status1Before
+        },
+        getStatus2From(state){
+            return state.searchFilters.status2From
+        },
+        getStatus2Before(state){
+            return state.searchFilters.status2Before
+        },
+        getStatus3From(state){
+            return state.searchFilters.status3From
+        },
+        getStatus3Before(state){
+            return state.searchFilters.status3Before
+        },
     },
     actions:{
         async getWelderNDTs(context) {

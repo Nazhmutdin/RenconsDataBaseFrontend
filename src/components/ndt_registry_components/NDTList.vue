@@ -12,10 +12,11 @@
             </tr>
             <tr>
                 <th class="table-header-subitem">№</th>
+                <th class="table-header-subitem">kleymo</th>
                 <th class="table-header-subitem">company</th>
                 <th class="table-header-subitem">subcompany</th>
                 <th class="table-header-subitem">project</th>
-                <th class="table-header-subitem subcol-border">date</th>
+                <th class="table-header-subitem subcol-border">welding date</th>
                 <th class="table-header-subitem">welded</th>
                 <th class="table-header-subitem">ndt</th>
                 <th class="table-header-subitem">accepted</th>
