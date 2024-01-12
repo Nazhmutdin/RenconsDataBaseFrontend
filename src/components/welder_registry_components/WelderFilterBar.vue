@@ -159,11 +159,10 @@
         padding-top: .3vw;
     }
     .filter-bar{
-        background: rgb(213, 237, 249);
         border-radius: 7px;
-        border: 2px solid blue;
-        position: fixed;
+        border: 1px solid blue;
         width: 18vw;
+        margin: 0;
         font-size: max(16px, 1.1vw);
     }
     .filter{

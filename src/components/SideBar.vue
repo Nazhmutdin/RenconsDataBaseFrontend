@@ -1,5 +1,5 @@
 <template>
-    <div class="sidebar-header">
+    <div class="sidebar">
         <div class="logo side-bar-header-item">
             <router-link :to="{ name: 'main' }" class="logo_img_container" href="">
                 <img class="logo-img" src="@/assets/logo.png" alt="Image">
@@ -51,12 +51,11 @@
 
 
 <style scoped>
-    .sidebar-header{
+    .sidebar{
         width: 100%;
         background-color: rgb(24, 114, 217);
         height: 60px;
         display: flex;
-        position: fixed;
         border-bottom: 2px solid #4d4d4d;
     }
     .logo{

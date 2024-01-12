@@ -1,13 +1,12 @@
 <template>
     <div v-if="amountPages > 1" class="pagination">
-        <div class="pages-amount">Amount Pages: {{ amountPages }}</div>
         <div class="pagination-buttons">
             <div class="previous-page-button welder-registry-page-button">
-                <button @click="previousPage()">Previous</button>
+                <button @click="previousPage">Previous</button>
             </div>
-            <div class="current-page">{{ currentPage }}</div>
+            <div class="current-page">{{ currentPage }}/{{ amountPages }}</div>
             <div class="next-page-button welder-registry-page-button">
-                <button @click="nextPage()">Next</button>
+                <button @click="nextPage">Next</button>
             </div>
         </div>
     </div>
@@ -48,7 +47,6 @@
         margin-left: 0;
     }
     .pagination-buttons{
-        padding: 1vw 0;
         display: inline-flex;
     }
     .welder-registry-page-button{

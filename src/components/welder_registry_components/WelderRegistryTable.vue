@@ -1,43 +1,29 @@
 <template>
-    <div v-show="getCount() != 0" class="summary-welders-count">
-        <span><b>Welders found:</b>&nbsp;{{ getCount() }}</span>
-    </div>
-    <table v-if="welders.length != 0" class="content-table">
-        <thead class="content-table-header">
+    <RegistryTable :amountRows="welders.length">
+        <thead class="table_header">
             <tr>
-                <th class="header-item header-row-index">№</th>
-                <th class="header-item header-welder-name">Full Name</th>
-                <th class="header-item header-welder-kleymo">Kleymo</th>
-                <th class="header-item header-welder-birthday">Birthday</th>
-                <th class="header-item header-welder-nation">Nation</th>
-                <th class="header-item header-welder-passport">Passport</th>
-                <th class="header-item header-welder-status">Status</th>
+                <th class="header_cell index_column">№</th>
+                <th class="header_cell name_column">Full Name</th>
+                <th class="header_cell kleymo_column">Kleymo</th>
+                <th class="header_cell birthday_column">Birthday</th>
+                <th class="header_cell nation_column">Nation</th>
+                <th class="header_cell passport_column">Passport</th>
+                <th class="header_cell sicil_column">Sicil</th>
+                <th class="header_cell status_column">Status</th>
             </tr>
         </thead>
         <tbody>
-            <WelderRow v-for="(welder, index) in welders" :status="welder.status" :passportId="welder.passport_id" :key="index" :index="index" :name="welder.name" :kleymo="welder.kleymo" :nation="welder.nation" :birthday="welder.birthday"></WelderRow>
+            <WelderRegistryRow v-for="(welder, index) in welders" :status="welder.status" :passportId="welder.passport_id" :key="index" :index="index" :name="welder.name" :kleymo="welder.kleymo" :nation="welder.nation" :birthday="welder.birthday"></WelderRegistryRow>
         </tbody>
-    </table>
-    <table v-else><div class="empty-content-container">Empty😧</div></table>
+    </RegistryTable>
 </template>
 
-
-<!--
-<=====================================================================>
--->
-
-
 <script>
-    import WelderRow from "@/components/welder_registry_components/WelderRow.vue"
-
+    import RegistryTable from "@/components/RegistryTable.vue"
+    import WelderRegistryRow from "@/components/welder_registry_components/WelderRegistryRow.vue"
     export default{
-        name: "WelderList",
-        components: { WelderRow },
-        methods: {
-            getCount(){
-                return this.$store.getters["welderRegistry/getCount"]
-            }
-        },
+        name: "WelderRegistryTable",
+        components: { RegistryTable, WelderRegistryRow },
         computed: {
             welders: function(){
                 return this.$store.getters["welderRegistry/getWelders"]
@@ -46,55 +32,14 @@
     }
 </script>
 
-
-<!--
-<=====================================================================>
--->
-
-
 <style scoped>
-    .summary-welders-count{
-        margin-bottom: 1vw;
-        font-size: 16px;
-        color: rgb(24, 114, 217);
+    .index_column{
+        width: 1vw;
     }
-    .content-table{
-        margin: 0;
+    .kleymo_column, .nation_column, .status_column{
+        width: 3.5vw;
     }
-    .header-item{
-        float: left;
-        border-bottom: 4px double rgb(32, 78, 186);
-        font-size: min(2.5vh, 18px);
-        font-weight: bold;
-        color: rgb(24, 114, 217);
-    }
-    .row-index, .header-row-index{
-        width: 4vw;
-        text-align: center;
-    }
-    .welder-name, .header-welder-name{
-        width: 30vw;
-        text-align: left;
-    }
-    .welder-kleymo, .header-welder-kleymo{
-        width: 6vw;
-        text-align: center;
-    }
-    .welder-birthday, .header-welder-birthday{
-        width: 6vw;
-        text-align: center;
-    }
-    .welder-nation, .header-welder-nation{
-        width: 6vw;
-        text-align: center;
-    }
-    .welder-passport, .header-welder-passport{
-        width: 7vw;
-        text-align: center;
-    }
-    .welder-status, .header-welder-status{
-        width: 7vw;
-        text-align: center;
-        margin: 0;
+    .birthday_column, .passport_column, .sicil_column{
+        width: 5vw;
     }
 </style>

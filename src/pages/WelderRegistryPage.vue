@@ -1,14 +1,16 @@
 <template>
-  <SideBar></SideBar>
+  <div class="sidebar_area">
+    <SideBar></SideBar>
+  </div>
+  <div class="input_area">
+    <input @keypress="searchWeldersOnEnter" type="text" v-model="searchValuesString">
+    <button @click="searchWelders">Search</button>
+    <WelderRegistryPagination :currentPage="currentPage" :amountPages="amountPages" @nextPage="nextPage" @previousPage="previousPage" class="pagination"></WelderRegistryPagination>
+  </div>
   <div class="content">
-    <div class="input-area">
-        <input @keypress="searchWeldersOnEnter" type="text" v-model="searchValuesString">
-        <button @click="searchWelders">Search</button>
-    </div>
-    <WelderRegistryPagination></WelderRegistryPagination>
     <WelderRegistryTable></WelderRegistryTable>
   </div>
-  <div class="welder-filter-bar">
+  <div class="filter_area">
     <WelderFilterBar></WelderFilterBar>
   </div>
 </template>
@@ -23,7 +25,7 @@
   import SideBar from "@/components/SideBar.vue"
   import WelderRegistryTable from "@/components/welder_registry_components/WelderRegistryTable.vue"
   import WelderFilterBar from "@/components/welder_registry_components/WelderFilterBar.vue"
-  import WelderRegistryPagination from "@/components/welder_registry_components/welderRegistryPagination.vue"
+  import WelderRegistryPagination from "@/components/Pagination.vue"
 
   export default{
     name: "WelderRegistry",
@@ -32,21 +34,53 @@
         searchValuesString: ""
       }
     },
-    components: { SideBar, WelderRegistryTable, WelderFilterBar, WelderRegistryPagination },
+    components: { SideBar, WelderRegistryTable, WelderRegistryPagination, WelderFilterBar },
+    computed: {
+      currentPage: {
+        get(){
+          return this.$store.getters["welderRegistry/getCurrentPage"] 
+        },
+        set(value){
+          this.$store.commit("welderRegistry/setCurrentPage", value)
+        }
+      },
+      amountPages: function(){
+        return Math.ceil(this.$store.getters["welderRegistry/getCount"] / this.$store.getters["welderRegistry/getPageSize"])
+      }
+    },
     methods: {
       searchWelders() {
         this.$store.commit("welderRegistry/setCurrentPage", 1)
         this.extractSearchValues()
         this.$store.dispatch("welderRegistry/getWelders")
+        console.log(this.$store.getters["welderRegistry/getWelders"])
       },
       searchWeldersOnEnter(event){
         if (event.key == "Enter"){
           this.searchWelders()
         }
       },
+      nextPage() {
+        console.log(this.currentPage)
+        if (this.currentPage < this.amountPages){
+          this.$store.commit("welderRegistry/setCurrentPage", this.currentPage + 1)
+          this.$store.dispatch("welderRegistry/getWelders")
+        }
+      },
+      previousPage() {
+        console.log(this.currentPage)
+        if (this.currentPage > 1){
+          this.$store.commit("welderRegistry/setCurrentPage", this.currentPage - 1)
+          this.$store.dispatch("welderRegistry/getWelders")
+        }
+      },
       extractSearchValues(){
         if (this.searchValuesString === ""){
-          return 
+          this.$store.commit("welderRegistry/setSearchValues", {
+            'kleymos': null,
+            'names': null,
+            'certificationNumbers': null
+          })
         }
         let kleymos = [];
         let certificationNumbers = []
@@ -83,42 +117,55 @@
 
 
 <style scoped>
-  body {
-      background: rgb(237, 246, 252); 
+  .input_area{
+    margin-left: 2vw;
   }
-  *{
-      margin: auto;
+  .input_area *{
+    margin-right: 2vw;
+  }
+  .pagination{
+    display: inline-block;
   }
   .content{
-    float: left;
-    margin: 2vw;
-    margin-top: 5vw;
+    margin: 0 0 0 2vw;
+    width: 70%;
   }
-  .welder-filter-bar{
-    margin-top: 12vh;
-    width: 20vw;
-    float: right;
+  .content, .filter_area{
+    display: inline-block;
   }
-  .input-area{
+  .filter_area{
+    margin: 0;
+    width: 100%;
+    position: fixed;
+  }
+  .filter_area div{
+    transform: translateX(25%);
+  }
+  .sidebar_area{
+    width: 100%;
+    margin-bottom: 2vh;
+    position: sticky;
+  }
+  .input_area{
     margin-bottom: 2vw;
   }
-  .input-area input[type=text]{
+  .input_area input[type=text]{
     width: 40vw;
     height: 3vh;
     margin-right: 2vw;
     border: 1px solid blue;
     border-radius: 5px;
   }
-  .input-area button{
+  .input_area button{
     background-color: aqua;
     border: 1px solid lightblue;
     border-radius: 5px;
   }
-  .input-area input:focus{
+  .input_area input:focus{
     border: 3px solid lightblue;
     border-radius: 5px;
   }
-  .input-area button:hover{
+  .input_area button:hover{
     cursor: pointer
   }
 </style>

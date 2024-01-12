@@ -10,7 +10,7 @@ export default new Vuex.Store({
         welderNDTRegistry: welder_ndt_registry_store
     },
     state: {
-        isAuthenticated: false
+        isAuthenticated: true
     },
     getters: {
         getIsAuthenticated(state){
