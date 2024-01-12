@@ -80,6 +80,7 @@
                 this.expirationDateBefore = null
                 this.expirationDateFactFrom = null
                 this.expirationDateFactBefore = null
+                this.status = null
             }
         },
         computed: {

@@ -6,7 +6,7 @@
         <button @click="searchWelders">Search</button>
     </div>
     <WelderRegistryPagination></WelderRegistryPagination>
-    <WelderList></WelderList>
+    <WelderRegistryTable></WelderRegistryTable>
   </div>
   <div class="welder-filter-bar">
     <WelderFilterBar></WelderFilterBar>
@@ -21,7 +21,7 @@
 
 <script>
   import SideBar from "@/components/SideBar.vue"
-  import WelderList from "@/components/welder_registry_components/WelderList.vue"
+  import WelderRegistryTable from "@/components/welder_registry_components/WelderRegistryTable.vue"
   import WelderFilterBar from "@/components/welder_registry_components/WelderFilterBar.vue"
   import WelderRegistryPagination from "@/components/welder_registry_components/welderRegistryPagination.vue"
 
@@ -32,7 +32,7 @@
         searchValuesString: ""
       }
     },
-    components: { SideBar, WelderList, WelderFilterBar, WelderRegistryPagination },
+    components: { SideBar, WelderRegistryTable, WelderFilterBar, WelderRegistryPagination },
     methods: {
       searchWelders() {
         this.$store.commit("welderRegistry/setCurrentPage", 1)

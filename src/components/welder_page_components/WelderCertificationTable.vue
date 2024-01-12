@@ -40,7 +40,7 @@
                 let payload = {
                     kleymos: [this.$route.params.id]
                 }
-                this.certifications = (await this.$v1Api.welderCertifications.getWelderCertifications(payload, 1, 100)).data.result
+                this.certifications = (await this.$api.v1Api.getWelderCertifications(payload, 1, 100)).data.result
                 console.log(this.certifications)
             }
         }

@@ -1,7 +1,7 @@
-import api from "../api/v1_api/index"
+import api from "../api/index"
 
 export default {
     install(Vue){
-        Vue.config.globalProperties.$v1Api = api
+        Vue.config.globalProperties.$api = api
     }
 }

@@ -1,4 +1,4 @@
-import v1_api from '../api/v1_api/index'
+import api from '../api/index'
 
 
 export default{
@@ -116,7 +116,7 @@ export default{
             let page = context.getters["getCurrentPage"]
             let pageSize = context.getters["getPageSize"]
 
-            const data = (await v1_api.welder.getWelders(payload, page, pageSize)).data
+            const data = (await api.v1Api.getWelders(payload, page, pageSize)).data
             context.commit("setWelders", data.result)
             context.commit("setCount", data.count)
         }

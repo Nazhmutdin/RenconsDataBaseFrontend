@@ -58,7 +58,7 @@
                     kleymos: [this.$route.params.id]
                 }
 
-                this.ndts = (await this.$v1Api.welderNDTs.getWelderNDTs(payload, 1, 100)).data.result
+                this.ndts = (await this.$api.v1Api.getWelderNDTs(payload, 1, 100)).data.result
                 console.log(this.ndts)
             }
         },

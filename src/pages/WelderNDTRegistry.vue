@@ -36,7 +36,7 @@
             },
             searchNDTsOnEnter(event){
                 if (event.key == "Enter"){
-                this.searchWelders()
+                    this.searchNDTs()
                 }
             },
             extractSearchValues(){

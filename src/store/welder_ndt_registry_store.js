@@ -1,4 +1,6 @@
-import v1_api from '../api/v1_api/index'
+import router from '@/router'
+import api from '../api/index'
+import apiErrHandler from '@/funcs/api_err_handlers'
 
 
 export default{
@@ -115,10 +117,21 @@ export default{
             let pageSize = context.getters["getPageSize"]
             console.log(page, pageSize)
 
-            const data = (await v1_api.welderNDTs.getWelderNDTs(payload, page, pageSize)).data
-            console.log(data)
-            context.commit("setNDTs", data.result)
-            context.commit("setCount", data.count)
+            await apiErrHandler(async () => {
+                const data = (await api.v1Api.getWelderNDTs(payload, page, pageSize)).data
+                console.log(data)
+                context.commit("setNDTs", data.result)
+                context.commit("setCount", data.count)
+            },
+            (err) => {
+                let detail = err.response.data["detail"]
+
+                if (detail === "token is required") {
+                    context.commit("setIsAuthenticated", false, { root: true })
+                    router.push("/auth")
+                }
+            })
+
         }
     }
 }
