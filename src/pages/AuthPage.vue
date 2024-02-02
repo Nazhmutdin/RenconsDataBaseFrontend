@@ -34,7 +34,6 @@
 
 
 <script>
-    import apiErrHandler from "@/funcs/api_err_handlers"
     export default{
         name: "AuthPage",
         data(){
@@ -45,12 +44,9 @@
             }
         },
         methods: {
-            async logIn(){
-                await apiErrHandler(async () => {
-                    await this.$api.auth.login(this.login, this.password)
-                    this.$store.commit("setIsAuthenticated", true)
-                    this.$router.push({ "name": "welderRegistry" })
-                }, (err) => {
+            logIn(){
+                this.$store.dispatch("login", {login: this.login, password: this.password}, (err) => {
+                    console.log(err)
                     document.getElementsByClassName("error_message")[0].textContent = err.response.data["detail"]
                     this.$store.commit("setIsAuthenticated", false)
                 })

@@ -1,4 +1,5 @@
 import api from '../api/index'
+import apiErrHandler from "@/funcs/api_err_handlers"
 
 
 export default{
@@ -106,7 +107,7 @@ export default{
         }
     },
     actions:{
-        async getWelders(context) {
+        async searchWelders(context, errAction) {
 
             let payload = {
                 ...context.getters["getSearchValues"],
@@ -116,9 +117,11 @@ export default{
             let page = context.getters["getCurrentPage"]
             let pageSize = context.getters["getPageSize"]
 
-            const data = (await api.v1Api.getWelders(payload, page, pageSize)).data
-            context.commit("setWelders", data.result)
-            context.commit("setCount", data.count)
+            await apiErrHandler( async () => {
+                const data = (await api.v1Api.getWelders(payload, page, pageSize)).data
+                context.commit("setWelders", data.result)
+                context.commit("setCount", data.count)
+            }, errAction)
         }
     }
 }

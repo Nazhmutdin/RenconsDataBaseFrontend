@@ -13,7 +13,11 @@
             </tr>
         </thead>
         <tbody>
-            <WelderRegistryRow v-for="(welder, index) in welders" :status="welder.status" :passportId="welder.passport_id" :key="index" :index="index" :name="welder.name" :kleymo="welder.kleymo" :nation="welder.nation" :birthday="welder.birthday"></WelderRegistryRow>
+            <WelderRegistryRow v-for="(welder, index) in welders" 
+            :key="index" 
+            :index="index" 
+            :welder="welder"
+            ></WelderRegistryRow>
         </tbody>
     </RegistryTable>
 </template>

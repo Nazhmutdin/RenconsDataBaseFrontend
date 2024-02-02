@@ -30,18 +30,9 @@
         name: "WelderCertificationTable",
         mixins: [utils],
         components: { WelderCertificationTableRow },
-        data(){
-            return {
-                certifications: this.getWelderCertifications()
-            }
-        },
-        methods: {
-            async getWelderCertifications() {
-                let payload = {
-                    kleymos: [this.$route.params.id]
-                }
-                this.certifications = (await this.$api.v1Api.getWelderCertifications(payload, 1, 100)).data.result
-                console.log(this.certifications)
+        props: {
+            certifications: {
+                type: Array
             }
         }
     }

@@ -18,8 +18,8 @@
                 </div>
             </div>
         </div>
-        <WelderCertificationTable></WelderCertificationTable>
-        <WelderNDTTable></WelderNDTTable>
+        <WelderCertificationTable :certifications="certifications"></WelderCertificationTable>
+        <WelderNDTTable :ndts="ndts"></WelderNDTTable>
     </div>
 </template>
 
@@ -31,36 +31,37 @@
         name: "WelderPage",
         mixins: [utils],
         components: { WelderCertificationTable, WelderNDTTable },
-        data(){
-            return {
-                welder: this.getWelder()
-            }
-        },
-        methods: {
-            async getWelder() {
-                this.welder = (await this.$api.v1Api.getWelder(this.$route.params.id)).data
-            }
+        created(){
+            this.$store.dispatch("welderPage/searchWelder", {kleymo: this.$route.params.id})
+            this.$store.dispatch("welderPage/searchWelderCertifications", {kleymo: this.$route.params.id})
+            this.$store.dispatch("welderPage/searchWelderNDTs", {kleymo: this.$route.params.id})
         },
         computed: {
+            welder: function(){
+                return this.$store.getters["welderPage/getWelder"]
+            },
+            certifications: function(){
+                return this.$store.getters["welderPage/getCertifications"]
+            },
+            ndts: function(){
+                return this.$store.getters["welderPage/getNDTs"]
+            },
             passport: function(){
                 if (this.welder.passport_id !== null){
                     return this.welder.passport_id
                 }
-
                 return "-"
             },
             birthday: function(){
                 if (this.welder.birthday !== null){
                     return this.formatDate(this.welder.birthday, "ru-RU")
                 }
-
                 return "-"
             },
             nation: function(){
                 if (this.welder.nation !== null){
                     return this.welder.nation
                 }
-
                 return "-"
             }
         }

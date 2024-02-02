@@ -5,7 +5,13 @@
   <div class="input_area">
     <input @keypress="searchWeldersOnEnter" type="text" v-model="searchValuesString">
     <button @click="searchWelders">Search</button>
-    <WelderRegistryPagination :currentPage="currentPage" :amountPages="amountPages" @nextPage="nextPage" @previousPage="previousPage" class="pagination"></WelderRegistryPagination>
+    <WelderRegistryPagination 
+    :currentPage="currentPage" 
+    :amountPages="amountPages" 
+    @nextPage="nextPage" 
+    @previousPage="previousPage" 
+    class="pagination">
+  </WelderRegistryPagination>
   </div>
   <div class="content">
     <WelderRegistryTable></WelderRegistryTable>
@@ -14,8 +20,8 @@
     <WelderFilterBar></WelderFilterBar>
   </div>
 </template>
-  
-  
+
+
 <!--
 <=====================================================================>
 -->
@@ -52,8 +58,10 @@
       searchWelders() {
         this.$store.commit("welderRegistry/setCurrentPage", 1)
         this.extractSearchValues()
-        this.$store.dispatch("welderRegistry/getWelders")
-        console.log(this.$store.getters["welderRegistry/getWelders"])
+        this.$store.dispatch("welderRegistry/searchWelders", (err) => {
+          console.log(err)
+          this.$router.push({ name: "authentication" })
+        })
       },
       searchWeldersOnEnter(event){
         if (event.key == "Enter"){
@@ -61,27 +69,18 @@
         }
       },
       nextPage() {
-        console.log(this.currentPage)
         if (this.currentPage < this.amountPages){
           this.$store.commit("welderRegistry/setCurrentPage", this.currentPage + 1)
-          this.$store.dispatch("welderRegistry/getWelders")
+          this.$store.dispatch("welderRegistry/searchWelders")
         }
       },
       previousPage() {
-        console.log(this.currentPage)
         if (this.currentPage > 1){
           this.$store.commit("welderRegistry/setCurrentPage", this.currentPage - 1)
-          this.$store.dispatch("welderRegistry/getWelders")
+          this.$store.dispatch("welderRegistry/searchWelders")
         }
       },
       extractSearchValues(){
-        if (this.searchValuesString === ""){
-          this.$store.commit("welderRegistry/setSearchValues", {
-            'kleymos': null,
-            'names': null,
-            'certificationNumbers': null
-          })
-        }
         let kleymos = [];
         let certificationNumbers = []
         let names = []

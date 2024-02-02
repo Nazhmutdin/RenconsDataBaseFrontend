@@ -52,19 +52,9 @@
     export default{
         name: "WelderNDTTable",
         components: { WelderNDTTableRow },
-        methods: {
-            async getNDTs() {
-                let payload = {
-                    kleymos: [this.$route.params.id]
-                }
-
-                this.ndts = (await this.$api.v1Api.getWelderNDTs(payload, 1, 100)).data.result
-                console.log(this.ndts)
-            }
-        },
-        data(){
-            return{
-                ndts: this.getNDTs()
+        props: {
+            ndts: {
+                type: Array
             }
         }
     }
